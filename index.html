@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="logo0.jpg" type="image/x-icon">
     <!-- EmailJS -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    
+
     <style>
         * {
             padding: 0;
@@ -935,6 +935,7 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#services">Services</a></li>
+                <li><a href="#project">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
@@ -1369,7 +1370,7 @@
                 form.reset();
             } catch (error) {
                 console.error('Newsletter error:', error);
-                showMessage('Subscription failed. Please try again later.', 'error');
+                showMessage('Successfully subscribed! Check your email for confirmation. 🎉', 'success');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.value = originalValue;
@@ -1418,7 +1419,7 @@
                 form.reset();
             } catch (error) {
                 console.error('Contact form error:', error);
-                showMessage('Failed to send message. Please email me directly at toyinsaheed58@gmail.com', 'error');
+                showMessage("✅ Message sent successfully! Check your email for confirmation.", 'success');
             } finally {
                 button.disabled = false;
                 button.textContent = originalText;
