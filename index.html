@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.Saheed Portfolio - Full Stack Web Developer</title>
+    
+    <meta name="description" content="Portfolio of Muhammed Saheed - Full Stack Web Developer">
+    <meta name="keywords" content="portfolio, web developer, Muhammed Saheed, Django, Python">
+    <meta name="author" content="Muhammed Saheed">
+    
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="logo0.jpg" type="image/x-icon">
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Josefin Sans", sans-serif;
+            text-decoration: none;
+            list-style-type: none;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg-color: #101010;
+            --second-bg-color: #191919;
+            --text-color: #fff;
+            --second-color: #c6c9d8bf;
+            --main-color: rgba(249, 0, 77, 0.95);
+            --big-font: 3.3rem;
+            --h2-font: 4.2rem;
+            --p-font: 1.1rem;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgba(51, 51, 51, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 100px;
+            transition: all 0.5s ease;
+        }
+
+        header.sticky {
+            padding: 12px 100px;
+            background-color: rgba(249, 0, 77, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            color: var(--text-color);
+            font-size: 35px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 2px solid white;
+            object-fit: cover;
+        }
+
+        .navbar {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar a {
+            color: var(--text-color);
+            font-weight: 600;
+            padding: 10px 20px;
+            font-size: 18px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--main-color);
+            left: 50%;
+            bottom: -4px;
+            transition: all 0.4s ease;
+            transform: translateX(-50%);
+        }
+
+        .navbar a:hover::after {
+            width: 80%;
+        }
+
+        header.sticky .navbar a::after {
+            background: var(--text-color);
+        }
+
+        #menu-icon {
+            font-size: 32px;
+            color: var(--text-color);
+            cursor: pointer;
+            display: none;
+        }
+
+        .l-btn {
+            padding: 12px 25px;
+            background: var(--main-color);
+            color: var(--text-color);
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(249, 0, 77, 0.3);
+        }
+
+        .l-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(249, 0, 77, 0.5);
+        }
+
+        header.sticky .l-btn {
+            background: var(--text-color);
+            color: var(--main-color);
+        }
+
+        /* Main Content */
+        main {
+            min-height: 100vh;
+        }
+
+        section {
+            padding: 120px 15%;
+        }
+
+        /* Scroll to Top Button */
+        #scrollToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--main-color), #ff1744);
+            color: var(--text-color);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 24px;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(249, 0, 77, 0.4);
+        }
+
+        #scrollToTop:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(249, 0, 77, 0.6);
+        }
+
+        #scrollToTop.show {
+            display: flex;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: white;
+            text-align: center;
+        }
+
+        footer .social-links {
+            margin-bottom: 20px;
+        }
+
+        footer .social-links a {
+            color: white;
+            margin: 0 15px;
+            font-size: 28px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        footer .social-links a:hover {
+            color: var(--main-color);
+            transform: translateY(-5px) scale(1.2);
+        }
+
+        footer p {
+            font-size: 16px;
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(249, 0, 77, 0.2);
+            border-top-color: var(--main-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Messages */
+        .messages {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 9998;
+            max-width: 400px;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            animation: slideInRight 0.5s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #00c853, #00e676);
+            color: white;
+        }
+
+        .alert-error {
+            background: linear-gradient(135deg, #d32f2f, #f44336);
+            color: white;
+        }
+
+        .alert-info {
+            background: linear-gradient(135deg, #0288d1, #03a9f4);
+            color: white;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Home Section */
+        .home {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('back.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(249, 0, 77, 0.1), transparent);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .home-text {
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+        }
+
+        .home-text h4 {
+            color: var(--second-color);
+            font-size: 20px;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            animation: slideInLeft 1s ease;
+        }
+
+        .home-text h1 {
+            font-size: var(--big-font);
+            font-weight: 700;
+            margin-bottom: 10px;
+            animation: slideInRight 1s ease;
+        }
+
+        .home-text span {
+            color: var(--main-color);
+            text-shadow: 0 0 20px rgba(249, 0, 77, 0.5);
+        }
+
+        .home-text h3 {
+            font-size: 25px;
+            margin-bottom: 40px;
+            color: whitesmoke;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid whitesmoke;
+            width: 20ch;
+            animation: typing 4s steps(20) 1s both, blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 20ch; }
+        }
+
+        @keyframes blink-caret {
+            50% { border-color: transparent; }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .newsletter form {
+            width: 380px;
+            max-width: 100%;
+            position: relative;
+        }
+
+        .newsletter form input[type="email"] {
+            width: 100%;
+            outline: none;
+            padding: 16px 140px 16px 20px;
+            border: 2px solid var(--main-color);
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: var(--text-color);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter form input[type="email"]:focus {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(249, 0, 77, 0.3);
+        }
+
+        .newsletter form input[type="submit"] {
+            position: absolute;
+            outline: none;
+            border: none;
+            background: linear-gradient(135deg, var(--main-color), #ff1744);
+            color: var(--text-color);
+            padding: 12px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            top: 6px;
+            right: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter form input[type="submit"]:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(249, 0, 77, 0.5);
+        }
+
+        /* About Section */
+        .about {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            background: var(--second-bg-color);
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .about-img {
+            position: relative;
+            width: 100%;
+        }
+
+        .about-img::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: 20px;
+            bottom: 20px;
+            border: 3px solid var(--main-color);
+            border-radius: 10px;
+            z-index: -1;
+            display: block;
+        }
+
+        .about-img img {
+            max-width: 100%;
+            width: 520px;
+            height: 520px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            object-fit: cover;
+        }
+
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-text h2 {
+            font-size: var(--h2-font);
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--text-color), var(--main-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-text h5 {
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .about-text h5 span {
+            color: var(--main-color);
+        }
+
+        .about-text p {
+            color: var(--second-color);
+            letter-spacing: 1px;
+            line-height: 28px;
+            max-width: 590px;
+            font-size: var(--p-font);
+            margin-bottom: 25px;
+        }
+
+        .about-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .d-btn {
+            display: inline-block;
+            background: var(--main-color);
+            color: var(--text-color);
+            border: 2px solid var(--main-color);
+            font-weight: 600;
+            padding: 13px 30px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(249, 0, 77, 0.3);
+        }
+
+        .d-btn:hover {
+            transform: translateY(-5px);
+            background: transparent;
+            box-shadow: 0 6px 25px rgba(249, 0, 77, 0.5);
+        }
+
+        /* Services Section */
+        .services {
+            background: var(--bg-color);
+        }
+
+        .center {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .center h2 {
+            font-size: var(--h2-font);
+            margin-bottom: 15px;
+        }
+
+        .center p {
+            letter-spacing: 1px;
+            color: var(--second-color);
+            line-height: 28px;
+            font-size: var(--p-font);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .services-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 4.5rem;
+        }
+
+        .row {
+            border: 3px solid transparent;
+            background: var(--second-bg-color);
+            padding: 30px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .row::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(249, 0, 77, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .row:hover::before {
+            left: 100%;
+        }
+
+        .row:hover {
+            border-color: var(--main-color);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(249, 0, 77, 0.3);
+        }
+
+        .row img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .row:hover img {
+            transform: scale(1.1);
+        }
+
+        .row h3 {
+            color: var(--text-color);
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .row p {
+            color: var(--second-color);
+            font-size: var(--p-font);
+            line-height: 28px;
+            text-align: justify;
+        }
+
+        /* Projects Section */
+        .tag {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            line-height: 1;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .tag-wp {
+            background: rgba(33, 117, 155, 0.18);
+            border: 1px solid rgba(33, 117, 155, 0.35);
+        }
+
+        .tag-ongoing {
+            background: rgba(249, 0, 77, 0.14);
+            border: 1px solid rgba(249, 0, 77, 0.35);
+        }
+
+        .project {
+            background: var(--second-bg-color);
+        }
+
+        .project-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4.5rem;
+        }
+
+        .box {
+            border: 3px solid transparent;
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .box::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(249, 0, 77, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .box:hover::after {
+            opacity: 1;
+        }
+
+        .box:hover {
+            border-color: var(--main-color);
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(249, 0, 77, 0.4);
+        }
+
+        .box img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .box h5 {
+            color: var(--text-color);
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .box p {
+            color: var(--second-color);
+            font-size: var(--p-font);
+            margin-bottom: 20px;
+            line-height: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 12px;
+            background: var(--main-color);
+            color: var(--text-color);
+            border: 2px solid var(--main-color);
+            font-weight: 600;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            pointer-events: auto;
+        }
+
+        .project-link:hover {
+            transform: translateY(-5px);
+            background: transparent;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--bg-color);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 40px;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 2px solid var(--main-color);
+            background: var(--second-bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--text-color);
+            box-shadow: 0 0 15px rgba(249, 0, 77, 0.3);
+        }
+
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--main-color), #ff1744);
+            color: var(--text-color);
+            border: 2px solid transparent;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(249, 0, 77, 0.3);
+        }
+
+        .contact-form button:hover {
+            transform: translateY(-5px);
+            border-color: var(--main-color);
+            background: transparent;
+            box-shadow: 0 6px 25px rgba(249, 0, 77, 0.5);
+        }
+
+        .contact-form button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                padding: 18px 4%;
+            }
+
+            header.sticky {
+                padding: 10px 4%;
+            }
+
+            section {
+                padding: 80px 4%;
+            }
+
+            :root {
+                --big-font: 2.3rem;
+                --h2-font: 3.2rem;
+                --p-font: 1rem;
+            }
+
+            #menu-icon {
+                display: block;
+            }
+
+            .logo img {
+                display: none;
+            }
+
+            .navbar {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(16, 16, 16, 0.98);
+                backdrop-filter: blur(10px);
+                text-align: left;
+                transition: all 0.3s ease;
+                max-height: 0;
+                overflow: hidden;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            }
+
+            .navbar.active {
+                max-height: 400px;
+                padding: 20px 0;
+            }
+
+            .navbar a {
+                display: block;
+                padding: 15px 30px;
+                margin: 5px 0;
+                border-left: 3px solid transparent;
+            }
+
+            .navbar a:hover {
+                background: rgba(249, 0, 77, 0.1);
+                border-left-color: var(--main-color);
+            }
+
+            .l-btn {
+                display: none;
+            }
+
+            #scrollToTop {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+            }
+
+            .home-text h3 {
+                width: 100%;
+                white-space: normal;
+                border: none;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .about-img {
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            .newsletter form {
+                width: 100%;
+            }
+
+            .services-content,
+            .project-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Messages -->
+    <div class="messages" id="messages"></div>
+
+    <!-- Header -->
+    <header>
+        <a href="#home" class="logo">
+            <img src="logo0.jpg" alt="Logo">
+            Portfolio
+        </a>
+        <div class="bx bx-menu" id="menu-icon"></div>
+        <nav>
+            <ul class="navbar">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <a href="#contact" class="l-btn">Let's Talk</a>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Section -->
+        <section class="home" id="home">
+            <div class="home-text">
+                <h4>Hello, my name is</h4>
+                <h1>Muhammed <span>Saheed</span></h1>
+                <h3>I'm a <span class="typing-text"></span></h3>
+                <div class="newsletter">
+                    <form id="newsletterForm">
+                        <input type="email" name="email" placeholder="Enter Your Email" required />
+                        <input type="submit" value="Let's Start" />
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about" id="about">
+            <div class="about-img">
+                <img src="about.jpeg" alt="Muhammed Saheed" />
+            </div>
+            <div class="about-text">
+                <h2>About Me</h2>
+                <h5>Developer <span>& Project Manager</span> & IT Support</h5>
+                <p>
+                    Hello! I'm Muhammed Saheed, a developer, project manager, and IT support specialist with experience building
+                    web applications and business websites. I work with Django and Python to develop scalable systems like inventory
+                    management and project management platforms.
+                </p>
+                <p>
+                    I provide reliable IT and tech support to help users and teams troubleshoot issues, set up systems, and keep things
+                    running smoothly. My focus is always on clean design, performance, and practical features that solve real problems.
+                </p>
+                <a href="TOYIN SAHEED MOHAMMED CV.pdf" class="d-btn" target="_blank">Download CV</a>
+                <a href="TOYIN SAHEED MOHAMMED RESUME.pdf" class="d-btn" target="_blank">Download Resume</a>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services" id="services">
+            <div class="center">
+                <h2>My Professional Services</h2>
+                <p>
+                    I help businesses and individuals build reliable websites, scalable web applications, and smooth digital experiences.
+                    From Django development and WordPress websites to project management and IT support, I deliver solutions that work and are easy to maintain.
+                </p>
+            </div>
+            <div class="services-content">
+                <div class="row">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=200&fit=crop" alt="Web Development" />
+                    <h3>Web Development</h3>
+                    <p>I specialize in creating responsive and user-friendly websites using modern frameworks like Django. From personal blogs to complex e-commerce platforms, I deliver solutions tailored to your needs.</p>
+                </div>
+                <div class="row">
+                    <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=200&fit=crop" alt="Graphic Design" />
+                    <h3>Graphic Design</h3>
+                    <p>Elevate your brand's visual identity with professional graphic design services. From logos and branding materials to stunning illustrations that make your content stand out.</p>
+                </div>
+                <div class="row">
+                    <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400&h=200&fit=crop" alt="IT and Tech Support" />
+                    <h3>IT & Tech Support</h3>
+                    <p>
+                        Reliable IT and technical support to keep your systems running smoothly.
+                        I help troubleshoot issues, set up hardware and software, maintain systems,
+                        and provide ongoing technical assistance so you can work without disruptions.
+                    </p>
+                </div>
+                <div class="row">
+                    <img src="https://images.unsplash.com/photo-1504691342899-4d92b50853e1?w=400&h=200&fit=crop" alt="WordPress Website Development" />
+                    <h3>WordPress Website Development</h3>
+                    <p>
+                        I build clean, responsive WordPress websites that are easy to manage and built
+                        to grow with your business. From setup and design to plugins, speed, and SEO basics,
+                        I deliver a website you can confidently run.
+                    </p>
+                </div>
+                <div class="row">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=200&fit=crop" alt="Project Management" />
+                    <h3>Project Management</h3>
+                    <p>
+                        I manage projects from planning to delivery, keeping timelines, tasks, and communication
+                        on track. I help teams stay organized, meet deadlines, and deliver quality results without chaos.
+                    </p>
+                </div>
+                <div class="row">
+                    <img src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400&h=200&fit=crop" alt="Software Development" />
+                    <h3>Python Development</h3>
+                    <p>Harness the power of Python for your software projects. I develop custom applications, scripts, and automation tools to streamline your business processes.</p>
+                </div>
+                <div class="row">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=200&fit=crop" alt="AI Development" />
+                    <h3>AI Development</h3>
+                    <p>Leverage the power of artificial intelligence to enhance your applications. I develop AI-driven solutions, including chatbots, recommendation systems, and more.</p>
+                </div>
+                <div class="row">
+                    <img src="https://images.unsplash.com/photo-1561070791-36c11767b26a?w=400&h=200&fit=crop" alt="UI/UX Design" />
+                    <h3>UI/UX Design</h3>
+                    <p>User experience matters. I design intuitive and visually appealing interfaces to enhance the usability and engagement of your digital products.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="project" id="project">
+            <div class="center">
+                <h2>Explore My Portfolio</h2>
+                <p>
+                    A selection of real-world projects I've built and managed, ranging from web applications
+                    and automation systems to WordPress business websites and e-commerce platforms.
+                    Each project reflects a focus on functionality, performance, and practical results.
+                </p>
+            </div>
+
+            <div class="project-content">
+                <!-- Django Projects -->
+                <div class="box">
+                    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400&h=200&fit=crop" alt="Inventory Management System" />
+                    <h5>Inventory Management System</h5>
+                    <p>
+                        A comprehensive Django-based system for managing stores, goods, receipts, invoices,
+                        notifications, and a public marketplace with advanced search and stock alerts.
+                        <br /><br /><b>Stack: Django, Python, SQLite, Bootstrap</b>
+                    </p>
+                    <a href="https://inventory.amatip.com/" target="_blank" rel="noopener noreferrer" class="project-link">Check it Out</a>
+                </div>
+
+                <div class="box">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=200&fit=crop" alt="Project Management System" />
+                    <h5>Project Management System</h5>
+                    <p>
+                        A project management platform for creating projects, assigning tasks, managing teams,
+                        role-based access, real-time notifications, notes, file attachments, and Kanban boards
+                        with collaboration features like chat and sharing links.
+                        <br /><br /><b>Stack: Django, Python, REST API, Bootstrap</b>
+                    </p>
+                    <a href="https://mypm.amatip.com/" target="_blank" rel="noopener noreferrer" class="project-link">Check it Out</a>
+                </div>
+
+                <div class="box">
+                    <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=200&fit=crop" alt="VideoClipper V2.0" />
+                    <h5>VideoClipper V2.0</h5>
+                    <p>
+                        A web app that generates short video clips from a longer video using a user prompt.
+                        Background processing with Celery allows users to upload, leave, and return later to download.
+                        <br /><br /><b>Stack: Django, Celery, Deep Learning, Redis/RabbitMQ</b>
+                    </p>
+                    <a href="https://videoclipper.amatip.com/" target="_blank" rel="noopener noreferrer" class="project-link">Check it Out</a>
+                </div>
+
+                <!-- WordPress Projects -->
+                <div class="box wp-project">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop" alt="G3 Interbiz" />
+                    <h5>G3 Interbiz <span class="tag tag-wp">WordPress</span></h5>
+                    <p>
+                        A professional business website showcasing services, company information, and contact channels.
+                        <br /><br /><b>Stack: WordPress, Elementor, SEO Setup</b>
+                    </p>
+                    <a href="https://g3interbiz.com/" target="_blank" rel="noopener noreferrer" class="project-link">Visit Site</a>
+                </div>
+
+                <div class="box wp-project">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=200&fit=crop" alt="Syberhost Website" />
+                    <h5>Syberhost <span class="tag tag-wp">WordPress</span></h5>
+                    <p>
+                        A web hosting and digital solutions website designed to present hosting plans, domains, and service pages clearly.
+                        <br /><br /><b>Stack: WordPress, Elementor, Responsive Design</b>
+                    </p>
+                    <a href="https://syberhost.com/" target="_blank" rel="noopener noreferrer" class="project-link">Visit Site</a>
+                </div>
+
+                <div class="box wp-project">
+                    <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=400&h=200&fit=crop" alt="House of Toffy" />
+                    <h5>House of Toffy <span class="tag tag-wp">WordPress</span></h5>
+                    <p>
+                        A UK fashion e-commerce website built for product browsing, collections, and mobile-friendly shopping.
+                        <br /><br /><b>Stack: WordPress, WooCommerce, Responsive Design</b>
+                    </p>
+                    <a href="https://houseoftoffy.co.uk/" target="_blank" rel="noopener noreferrer" class="project-link">Visit Site</a>
+                </div>
+
+                <div class="box wp-project">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=200&fit=crop" alt="Thessy Luxe" />
+                    <h5>Thessy Luxe <span class="tag tag-wp">WordPress</span></h5>
+                    <p>
+                        A fashion-focused storefront built to highlight product collections with a clean, premium layout.
+                        <br /><br /><b>Stack: WordPress, WooCommerce, Theme Customization</b>
+                    </p>
+                    <a href="https://thessyluxe.co.uk/" target="_blank" rel="noopener noreferrer" class="project-link">Visit Site</a>
+                </div>
+
+                <div class="box wp-project">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=200&fit=crop" alt="Wonda African" />
+                    <h5>Wonda African <span class="tag tag-wp">WordPress</span></h5>
+                    <p>
+                        An e-commerce platform built for catalog browsing, product discovery, and smooth checkout experience.
+                        <br /><br /><b>Stack: WordPress, WooCommerce, Custom UI</b>
+                    </p>
+                    <a href="https://wondaafrican.co.uk/" target="_blank" rel="noopener noreferrer" class="project-link">Visit Site</a>
+                </div>
+
+                <div class="box wp-project">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=200&fit=crop" alt="Zaliyah's Glow" />
+                    <h5>Zaliyah's Glow <span class="tag tag-wp">WordPress</span></h5>
+                    <p>
+                        A beauty brand website built to present products, brand story, and customer-friendly shopping flow.
+                        <br /><br /><b>Stack: WordPress, WooCommerce, Responsive Design</b>
+                    </p>
+                    <a href="https://zaliyahsglow.com/" target="_blank" rel="noopener noreferrer" class="project-link">Visit Site</a>
+                </div>
+
+                <!-- Ongoing Projects -->
+                <div class="box ongoing-project">
+                    <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=200&fit=crop" alt="Ongoing E-commerce Project" />
+                    <h5>E-commerce Platform <span class="tag tag-ongoing">Ongoing</span></h5>
+                    <p>
+                        A scalable e-commerce web application with product management, cart/checkout flow, and admin dashboard.
+                        <br /><br /><b>Stack: In Progress</b>
+                    </p>
+                    <a href="#" class="project-link" onclick="alert('Project in development'); return false;">View Progress</a>
+                </div>
+
+                <div class="box ongoing-project">
+                    <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=200&fit=crop" alt="Ongoing Law Firm Website" />
+                    <h5>Law Firm Website <span class="tag tag-ongoing">Ongoing</span></h5>
+                    <p>
+                        A professional law firm website with practice areas, attorney profiles, consultation booking, and blog.
+                        <br /><br /><b>Stack: In Progress</b>
+                    </p>
+                    <a href="#" class="project-link" onclick="alert('Project in development'); return false;">View Progress</a>
+                </div>
+
+                <div class="box ongoing-project">
+                    <img src="https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?w=400&h=200&fit=crop" alt="Ongoing Fire Detection System Software" />
+                    <h5>Fire Detection System Software <span class="tag tag-ongoing">Ongoing</span></h5>
+                    <p>
+                        A fire detection and alert software system focused on monitoring, event logging, and notification workflows.
+                        <br /><br /><b>Stack: In Progress</b>
+                    </p>
+                    <a href="#" class="project-link" onclick="alert('Project in development'); return false;">View Progress</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact" id="contact">
+            <div class="center">
+                <h2>Contact Me</h2>
+                <p>Have a question or want to discuss a project? Feel free to reach out.</p>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop"><i class='bx bx-up-arrow-alt'></i></button>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://wa.link/wgopvp" target="_blank"><i class='bx bxl-whatsapp'></i></a>
+            <a href="https://github.com/Tizybrown" target="_blank"><i class='bx bxl-github'></i></a>
+            <a href="https://x.com/tizybrown58" target="_blank"><i class='bx bxl-twitter'></i></a>
+            <a href="https://www.instagram.com/tizybrown_official" target="_blank" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+            <a href="https://www.linkedin.com/in/saheed-toyin-5b7605285/" target="_blank" aria-label="LinkedIn"><i class='bx bxl-linkedin'></i></a>
+        </div>
+        <p>&copy; 2026 Muhammed Saheed. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // ===== EmailJS Initialization =====
+        emailjs.init('nUj0X_o1vqm3DAoy1');
+
+        // ===== Configuration =====
+        const EMAIL_CONFIG = {
+            serviceId: 'service_vvj2rwa',
+            templates: {
+                contactNotify: 'template_contact_notify',
+                contactAutoReply: 'template_contact_autoreply',
+                newsletterWelcome: 'template_newsletter_welcome'
+            },
+            yourEmail: 'toyinsaheed58@gmail.com'
+        };
+
+        // Typing Animation
+        const roles = [
+            "Web Developer",
+            "Project Manager", 
+            "IT Support Specialist"
+        ];
+        
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingSpeed = 100;
+        const deletingSpeed = 50;
+        const pauseDuration = 2000;
+
+        function typeRole() {
+            const typingElement = document.querySelector('.typing-text');
+            if (!typingElement) return;
+
+            const currentRole = roles[roleIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let delay = isDeleting ? deletingSpeed : typingSpeed;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                delay = pauseDuration;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                delay = 500;
+            }
+
+            setTimeout(typeRole, delay);
+        }
+
+        // Start typing animation after page load
+        setTimeout(() => {
+            typeRole();
+        }, 1000);
+
+        // Helper Functions
+        function hideLoader() {
+            const loader = document.getElementById('loading');
+            if (loader) loader.classList.add('hidden');
+        }
+
+        function showMessage(text, type) {
+            const messagesDiv = document.getElementById('messages');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = text;
+            messagesDiv.appendChild(alert);
+
+            setTimeout(() => {
+                alert.style.transition = 'opacity 0.5s ease';
+                alert.style.opacity = '0';
+                setTimeout(() => alert.remove(), 500);
+            }, 5000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(hideLoader, 150);
+        });
+
+        // Sticky Header
+        const header = document.querySelector('header');
+        function updateHeader() {
+            if (header) header.classList.toggle('sticky', window.scrollY > 100);
+        }
+        window.addEventListener('scroll', updateHeader);
+
+        // Mobile Menu
+        const menu = document.querySelector('#menu-icon');
+        const navbar = document.querySelector('.navbar');
+        if (menu && navbar) {
+            menu.addEventListener('click', () => {
+                menu.classList.toggle('bx-x');
+                navbar.classList.toggle('active');
+            });
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.remove('bx-x');
+                    navbar.classList.remove('active');
+                });
+            });
+        }
+
+        // Scroll To Top
+        const scrollBtn = document.getElementById('scrollToTop');
+        function updateScrollBtn() {
+            if (scrollBtn) scrollBtn.classList.toggle('show', window.scrollY > 300);
+        }
+        window.addEventListener('scroll', updateScrollBtn);
+        if (scrollBtn) {
+            scrollBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // Newsletter Form
+        document.getElementById('newsletterForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const submitBtn = form.querySelector('input[type="submit"]');
+            const originalValue = submitBtn.value;
+            const email = form.querySelector('input[type="email"]').value.trim();
+
+            if (!email || !email.includes('@')) {
+                showMessage('Please enter a valid email address.', 'error');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.value = 'Subscribing...';
+
+            try {
+                await Promise.all([
+                    emailjs.send(EMAIL_CONFIG.serviceId, EMAIL_CONFIG.templates.newsletterWelcome, { to_email: email }),
+                    emailjs.send(EMAIL_CONFIG.serviceId, EMAIL_CONFIG.templates.contactNotify, {
+                        to_email: EMAIL_CONFIG.yourEmail,
+                        from_name: 'Newsletter System',
+                        from_email: email,
+                        message: `New newsletter subscription from: ${email}`
+                    })
+                ]);
+
+                showMessage('Successfully subscribed! Check your email for confirmation. 🎉', 'success');
+                form.reset();
+            } catch (error) {
+                console.error('Newsletter error:', error);
+                showMessage('Subscription failed. Please try again later.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.value = originalValue;
+            }
+        });
+
+        // Contact Form
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const button = form.querySelector('button[type="submit"]');
+            const originalText = button.textContent;
+
+            const name = form.querySelector('input[name="name"]').value.trim();
+            const email = form.querySelector('input[name="email"]').value.trim();
+            const message = form.querySelector('textarea[name="message"]').value.trim();
+
+            if (!name || !email || !message) {
+                showMessage('Please fill in all fields.', 'error');
+                return;
+            }
+
+            if (!email.includes('@')) {
+                showMessage('Please enter a valid email address.', 'error');
+                return;
+            }
+
+            button.disabled = true;
+            button.textContent = 'Sending...';
+
+            try {
+                await Promise.all([
+                    emailjs.send(EMAIL_CONFIG.serviceId, EMAIL_CONFIG.templates.contactNotify, {
+                        to_email: EMAIL_CONFIG.yourEmail,
+                        from_name: name,
+                        from_email: email,
+                        message: message
+                    }),
+                    emailjs.send(EMAIL_CONFIG.serviceId, EMAIL_CONFIG.templates.contactAutoReply, {
+                        to_email: email,
+                        from_name: name
+                    })
+                ]);
+
+                showMessage("✅ Message sent successfully! Check your email for confirmation.", 'success');
+                form.reset();
+            } catch (error) {
+                console.error('Contact form error:', error);
+                showMessage('Failed to send message. Please email me directly at toyinsaheed58@gmail.com', 'error');
+            } finally {
+                button.disabled = false;
+                button.textContent = originalText;
+            }
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (!href || href === '#') return;
+                const target = document.querySelector(href);
+                if (!target) return;
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
